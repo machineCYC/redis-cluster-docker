@@ -156,3 +156,8 @@ docker rm -f sentinel-0 sentinel-1 sentinel-2
 
 
 ```
+
+
+## Reference
+
+- [Redis on Kubernetes for beginners](https://www.youtube.com/watch?v=JmCn7k0PlV4&list=RDCMUCFe9-V_rN9nLqVNiI8Yof3w&start_radio=1&ab_channel=ThatDevOpsGuy)
