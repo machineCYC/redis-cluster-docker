@@ -1,5 +1,7 @@
 # redis-cluster-docker
 
+This proejct will build an api server to test the redis cluster with master redis failed
+
 ## Replication
 
 Documentation [here](https://redis.io/topics/replication)
