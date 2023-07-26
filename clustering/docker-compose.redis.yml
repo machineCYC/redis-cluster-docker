@@ -1,0 +1,87 @@
+version: '3.2'
+
+services:
+  redis-0:
+    image: 'redis:6.0-alpine'
+    hostname: redis-0
+    ports:
+      - target: 6379
+        published: 7000
+        mode: host
+    volumes:
+      - /mnt/d/workspace/redis-cluster-docker/clustering/redis-0:/etc/redis/
+    command: "redis-server /etc/redis/redis.conf"
+    restart: always
+    networks:
+        - redis
+
+  redis-1:
+    image: 'redis:6.0-alpine'
+    hostname: redis-1
+    ports:
+      - target: 6379
+        published: 7001
+        mode: host
+    volumes:
+      - /mnt/d/workspace/redis-cluster-docker/clustering/redis-1:/etc/redis/
+    command: "redis-server /etc/redis/redis.conf"
+    restart: always
+    networks:
+      - redis
+
+  sentinel-0:
+    image: 'redis:6.0-alpine'
+    hostname: sentinel-0
+    ports:
+      - target: 5000
+        published: 8000
+        mode: host
+    volumes:
+      - /mnt/d/workspace/redis-cluster-docker/clustering/sentinel-0:/etc/redis/
+    command: "redis-sentinel /etc/redis/sentinel.conf"
+    restart: always
+    networks:
+      - redis
+
+  sentinel-1:
+    image: 'redis:6.0-alpine'
+    hostname: sentinel-1
+    ports:
+      - target: 5000
+        published: 8001
+        mode: host
+    volumes:
+      - /mnt/d/workspace/redis-cluster-docker/clustering/sentinel-1:/etc/redis/
+    command: "redis-sentinel /etc/redis/sentinel.conf"
+    restart: always
+    networks:
+      - redis
+
+  sentinel-2:
+    image: 'redis:6.0-alpine'
+    hostname: sentinel-2
+    ports:
+      - target: 5000
+        published: 8002
+        mode: host
+    volumes:
+      - /mnt/d/workspace/redis-cluster-docker/clustering/sentinel-2:/etc/redis/
+    command: "redis-sentinel /etc/redis/sentinel.conf"
+    restart: always
+    networks:
+      - redis
+
+  api:
+    image: fast_api:v1
+    hostname: fast_api
+    ports:
+      - target: 9000
+        published: 9000
+        mode: host
+    environment:
+      - REDIS_PWD=12345
+    networks:
+      - redis
+
+networks:
+  redis:
